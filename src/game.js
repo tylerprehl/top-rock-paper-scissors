@@ -10,7 +10,7 @@ function getComputerChoice() {
 function playRound(playerChoice, computerChoice) {
     playerChoice = playerChoice.toLowerCase();
     if (playerChoice === computerChoice) {
-        return "It was a draw!"
+        return "draw"
     }
     let choiceMapping = new Map();
     choiceMapping.set("rock", 0);
@@ -19,18 +19,43 @@ function playRound(playerChoice, computerChoice) {
     let playerNum = choiceMapping.get(playerChoice);
     let cpuNum = choiceMapping.get(computerChoice);
     if ((playerNum+1) % 3 === cpuNum % 3) {
-        return `You lost :/ ${playerChoice} loses to ${computerChoice}`;
+        return `player-loss`;
     }
     else {
-        return `You won! ${playerChoice} beats ${computerChoice}`;
+        return `player-win`;
     }
 }
 
-function game() {
-    for (let i=0; i<5; i++) {
-        let userChoice = prompt("Please enter rock, paper, or scissors: ");
-        console.log(playRound(userChoice, getComputerChoice()));
+function game(e) {
+    console.log(`User Choice: ${this.id}`);
+    let userChoice = this.id;
+    let result = playRound(userChoice, getComputerChoice());
+    console.log(result);
+
+    const resultDisplay = document.querySelector('#game-result');
+    console.log(resultDisplay);
+    // ERROR IS OCCURRING HERE!!!!
+
+    if (result === 'player-win') {
+        userWins++;
+        resultDisplay.textContent("Player wins!");
     }
+    else if (result === 'player-loss') {
+        cpuWins++;
+        resultDisplay.textContent("Player lost :(")
+    }
+    console.log(`User Wins: ${userWins}`);
+    console.log(`CPU Wins: ${cpuWins}`);
+    console.log(' ');
 }
 
-game();
+let cpuWins = 0;
+let userWins = 0;
+
+const userChoices = document.querySelectorAll('button');
+userChoices.forEach(choice => choice.addEventListener("click", game));
+
+
+
+
+//game();
