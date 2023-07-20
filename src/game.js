@@ -38,12 +38,16 @@ function game(e) {
 
     if (result === 'player-win') {
         userWins++;
-        resultDisplay.textContent("Player wins!");
+        resultDisplay.textContent = "Player wins!";
     }
     else if (result === 'player-loss') {
         cpuWins++;
-        resultDisplay.textContent("Player lost :(")
+        resultDisplay.textContent = "Player lost :(";
     }
+    else {
+        resultDisplay.textContent = "It was a draw";
+    }
+
     console.log(`User Wins: ${userWins}`);
     console.log(`CPU Wins: ${cpuWins}`);
     console.log(' ');
