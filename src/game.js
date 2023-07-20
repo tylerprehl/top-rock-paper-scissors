@@ -26,31 +26,108 @@ function playRound(playerChoice, computerChoice) {
     }
 }
 
-function game(e) {
-    console.log(`User Choice: ${this.id}`);
-    let userChoice = this.id;
-    let result = playRound(userChoice, getComputerChoice());
-    console.log(result);
-
-    const resultDisplay = document.querySelector('#game-result');
-    console.log(resultDisplay);
-    // ERROR IS OCCURRING HERE!!!!
-
-    if (result === 'player-win') {
-        userWins++;
-        resultDisplay.textContent = "Player wins!";
+function displayChoices(userChoice, cpuChoice) {
+    const choiceContainer = document.querySelector('.choices-container');
+    
+    // remove old players' choices
+    if (choiceContainer.childNodes.length !== 0) {
+        const choiceDisplays = document.querySelectorAll('.choice-content');
+        choiceContainer.removeChild(choiceDisplays[0]);
+        choiceContainer.removeChild(choiceDisplays[1]);
     }
-    else if (result === 'player-loss') {
+
+    // create new user's choice
+    const userChoiceContent = document.createElement('div');
+    userChoiceContent.classList.add('choice-content');
+
+    const userChoiceTitle = document.createElement('div');
+    userChoiceTitle.classList.add('user-choice-title');
+    userChoiceTitle.textContent = "User Choice:";
+    userChoiceContent.appendChild(userChoiceTitle);
+
+    const userChoiceDiv = document.createElement('div');
+    userChoiceDiv.id = 'user-choice';
+    userChoiceDiv.textContent = userChoice.toUpperCase();
+    userChoiceContent.appendChild(userChoiceDiv);
+
+    choiceContainer.appendChild(userChoiceContent);
+
+    // create new cpu's choice
+    const cpuChoiceContent = document.createElement('div');
+    cpuChoiceContent.classList.add('choice-content');
+
+    const cpuChoiceTitle = document.createElement('div');
+    cpuChoiceTitle.classList.add('cpu-choice-title');
+    cpuChoiceTitle.textContent = "CPU Choice:";
+    cpuChoiceContent.appendChild(cpuChoiceTitle);
+
+    const cpuChoiceDiv = document.createElement('div');
+    cpuChoiceDiv.classList.add('choice');
+    cpuChoiceDiv.id = 'cpu-choice';
+    cpuChoiceDiv.textContent = cpuChoice.toUpperCase();
+    cpuChoiceContent.appendChild(cpuChoiceDiv);
+
+    choiceContainer.appendChild(cpuChoiceContent);
+}
+
+function displayResults(gameResult) {
+    const resultsContainer = document.querySelector('.result-container');
+    
+    // get rid of old results
+    // I considered the option of just editing the current nodes (if they 
+    // already exist), but decided that for simplicity I would do a full 
+    // overwrite
+    if (resultsContainer.childNodes.length !== 0) {
+        const oldGameResultTitle = document.querySelector('.result-title');
+        const oldGameResultContent = document.querySelector('.result-content');
+        resultsContainer.removeChild(oldGameResultTitle);
+        resultsContainer.removeChild(oldGameResultContent);
+    }
+    
+    // start creation of new results
+    const gameResultTitleDiv = document.createElement('div');
+    gameResultTitleDiv.classList.add('result-title')
+    gameResultTitleDiv.textContent = "Game Results:";
+    resultsContainer.appendChild(gameResultTitleDiv);
+
+    const gameResultContentDiv = document.createElement('div');
+    gameResultContentDiv.classList.add('result-content');
+    
+    if (gameResult === 'player-win') {
+        userWins++;
+        gameResultContentDiv.textContent = "Player wins!";
+    }
+    else if (gameResult === 'player-loss') {
         cpuWins++;
-        resultDisplay.textContent = "Player lost :(";
+        gameResultContentDiv.textContent = "Player lost :(";
     }
     else {
-        resultDisplay.textContent = "It was a draw";
+        gameResultContentDiv.textContent = "It was a draw";
     }
 
+    resultsContainer.appendChild(gameResultContentDiv);
+}
+
+function displayWins() {
     console.log(`User Wins: ${userWins}`);
     console.log(`CPU Wins: ${cpuWins}`);
     console.log(' ');
+}
+
+function game(e) {
+    console.log(`User Choice: ${this.id}`);
+    let userChoice = this.id;
+    let cpuChoice = getComputerChoice();
+    let result = playRound(userChoice, cpuChoice);
+    console.log(result);
+
+    displayChoices(userChoice, cpuChoice)
+
+    // LOADING DISPLAY JS??
+
+    displayResults(result);
+
+    displayWins();
 }
 
 let cpuWins = 0;

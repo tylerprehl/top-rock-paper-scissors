@@ -1,3 +1,39 @@
-p {
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    gap: 20px;
+}
+
+.choices-container {
+    display: flex;
+    justify-content: space-evenly;
+    width: 300px;
+    height: 50px;
+    align-items: center;
+    padding:
+}
+
+#user-choice {
+
+}
+
+#cpu-choice {
+
+}
+
+.result-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     font-weight: bold;
+    padding: 15px;
+    gap: 10px;
+}
+
+.result-content {
+    padding: 10px 20px;
+    border: 3px black solid;
 }

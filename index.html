@@ -9,13 +9,24 @@
 </head>
 <body>
     <h1>Rock - Paper - Scissors</h1>
-    <p>
-        <button id="rock">Rock</button>
-        <button id="paper">Paper</button>
-        <button id="scissors">Scissors</button>
-    </p>
-    <p>
-        <span id="game-result"></span>
-    </p>
+    <div class="options-container">
+        <div>Choose your fighter!</div>
+        <div class="options-content">
+            <button id="rock">Rock</button>
+            <button id="paper">Paper</button>
+            <button id="scissors">Scissors</button>
+        </div>
+    </div>
+    <div class="choices-container">
+        <div class="choice-content">
+            <div class="user-choice-title">User Choice:</div>
+            <div class="choice" id="user-choice">Example</div>
+        </div>
+        <div class="choice-content">
+            <div class="cpu-choice-title">CPU Choice:</div>
+            <div class="choice" id="cpu-choice">Example</div>
+        </div>
+    </div>
+    <div class="result-container"></div> 
 </body>
 </html>
