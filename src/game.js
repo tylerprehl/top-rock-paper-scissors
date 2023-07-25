@@ -70,29 +70,24 @@ function displayChoices(userChoice, cpuChoice) {
     choiceContainer.appendChild(cpuChoiceContent);
 }
 
-function displayResults(gameResult) {
-    const resultsContainer = document.querySelector('.result-container');
-    
-    // get rid of old results
-    // I considered the option of just editing the current nodes (if they 
-    // already exist), but decided that for simplicity I would do a full 
-    // overwrite
-    if (resultsContainer.childNodes.length !== 0) {
-        const oldGameResultTitle = document.querySelector('.result-title');
-        const oldGameResultContent = document.querySelector('.result-content');
-        resultsContainer.removeChild(oldGameResultTitle);
-        resultsContainer.removeChild(oldGameResultContent);
-    }
-    
-    // start creation of new results
-    const gameResultTitleDiv = document.createElement('div');
-    gameResultTitleDiv.classList.add('result-title')
-    gameResultTitleDiv.textContent = "Game Results:";
-    resultsContainer.appendChild(gameResultTitleDiv);
+function displayResult(gameResult) {
+    const resultContainer = document.querySelector('.result-container');
 
-    const gameResultContentDiv = document.createElement('div');
-    gameResultContentDiv.classList.add('result-content');
-    
+    // if the result-container does not have the result (title) elements yet
+    if (resultContainer.querySelector('.result-title') === null) {
+        // then create them
+        const gameResultTitleDiv = document.createElement('div');
+        gameResultTitleDiv.classList.add('result-title')
+        gameResultTitleDiv.textContent = "Game Result:";
+        resultContainer.appendChild(gameResultTitleDiv);
+
+        const gameResultContentDivNew = document.createElement('div');
+        gameResultContentDivNew.classList.add('result-content');
+        resultContainer.appendChild(gameResultContentDivNew);
+    }
+
+    const gameResultContentDiv = document.querySelector('.result-content');
+
     if (gameResult === 'player-win') {
         userWins++;
         gameResultContentDiv.textContent = "Player wins!";
@@ -104,14 +99,74 @@ function displayResults(gameResult) {
     else {
         gameResultContentDiv.textContent = "It was a draw";
     }
-
-    resultsContainer.appendChild(gameResultContentDiv);
 }
 
-function displayWins() {
+function displayScorecard() {
     console.log(`User Wins: ${userWins}`);
     console.log(`CPU Wins: ${cpuWins}`);
     console.log(' ');
+
+    let scorecardContainer = document.querySelector('.scorecard-container');
+    console.log(scorecardContainer);
+
+    // if the scorecard-container does not exist
+    if (!scorecardContainer) {
+        // then create it and its children
+        const body = document.querySelector('body');
+        const footerContainer = document.querySelector('.footer-container');
+        
+        scorecardContainer = document.createElement('div');
+        scorecardContainer.classList.add('scorecard-container');
+        // apply cool border (see style.css for credit)
+        scorecardContainer.style.cssText = "border: solid 5px white;" +
+                                           "width: 350px;" + 
+                                           "border-width: 3px 3px 5px 5px;" +
+                                           "border-radius: 4% 95% 6% 95%/95% 4% 92% 5%;" +
+                                           "transform: rotate(-2deg);"
+        body.insertBefore(scorecardContainer, footerContainer);
+
+        const scorecardTitle = document.createElement('div');
+        scorecardTitle.classList.add('scorecard-title')
+        scorecardTitle.textContent = "Scorecard:";
+        scorecardContainer.appendChild(scorecardTitle);
+
+        const scorecardContent = document.createElement('div');
+        scorecardContent.classList.add('scorecard-content');
+        scorecardContainer.appendChild(scorecardContent);
+
+        // user score
+        displayScore(scorecardContent, "user", userWins);
+
+        // cpu score
+        displayScore(scorecardContent, "cpu", cpuWins);
+    }
+    else {
+        changeScore("user", userWins);
+        changeScore("cpu", cpuWins);
+    }
+}
+
+function displayScore (parentContent, player, wins) {
+    const playerScoreContent = document.createElement('div');
+    playerScoreContent.classList.add('individual-score-content');
+
+    const playerScoreTitle = document.createElement('div');
+    playerScoreTitle.classList.add('individual-score-title');
+    playerScoreTitle.textContent = `${player.toUpperCase()} Score`;
+    playerScoreContent.appendChild(playerScoreTitle);
+
+    const playerScoreCount = document.createElement('div');
+    playerScoreCount.classList.add('individual-score-count');
+    playerScoreCount.id = `${player}-score-count`;
+    playerScoreCount.textContent = wins;
+    playerScoreContent.appendChild(playerScoreCount);
+
+    parentContent.appendChild(playerScoreContent);
+}
+
+function changeScore (player, wins) {
+    const playerScoreCount = document.querySelector(`#${player}-score-count`);
+    playerScoreCount.textContent = wins;
 }
 
 function game(e) {
@@ -133,9 +188,17 @@ function game(e) {
 
     // LOADING DISPLAY JS??
 
-    displayResults(result);
+    displayResult(result);
 
-    displayWins();
+    displayScorecard();
+}
+
+function removeChildNodes(headNode) {
+    if (headNode.childNodes.length !== 0) {
+        Array.from(headNode.childNodes).forEach(function (childNode) {
+            headNode.removeChild(childNode);
+        })
+    }
 }
 
 let cpuWins = 0;

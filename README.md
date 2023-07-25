@@ -19,7 +19,8 @@ The key takeaways from this were:<br>
 - Using query selectors and event listeners
 - Dynamically changing the DOM based on JavaScript logic/actions
 <!--end list -->
-<br><br>
+<br>
 Some other cool things I learned along the way:<br>
 - Using the audio HTML tag and its attributes
+- Using emojis in HTML
 <!--end list -->
