@@ -96,7 +96,6 @@ function displayScorecard() {
     console.log(' ');
 
     let scorecardContainer = document.querySelector('.scorecard-container');
-    console.log(scorecardContainer);
 
     // if the scorecard-container does not exist
     if (!scorecardContainer) {
@@ -180,6 +179,7 @@ function game(e) {
     displayResult(result);
 
     displayScorecard();
+
 }
 
 function removeChildNodes(headNode) {
