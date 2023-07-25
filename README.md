@@ -21,6 +21,8 @@ The key takeaways from this were:<br>
 <!--end list -->
 <br>
 Some other cool things I learned along the way:<br>
-* Using the audio HTML tag and its attributes
-* Using emojis in HTML
+<ul>
+    <li>Using the audio HTML tag and its attributes</li>
+    <li>Using emojis in HTML</li>
+</ul>
 <!--end list -->
