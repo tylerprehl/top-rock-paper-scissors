@@ -11,3 +11,11 @@ The key takeaways from this were:<br>
 - Using JS functions
 
 ## Part 2
+In this part, I created a UI to allow the user to play rock-paper-scissors on demand.
+<br><br>
+The key takeaways from this were:<br>
+- Using query selectors and event listeners
+- Dynamically changing the DOM based on JavaScript logic/actions
+<br><br>
+Some other cool things I learned along the way:<br>
+- Using the audio HTML tag and its attributes

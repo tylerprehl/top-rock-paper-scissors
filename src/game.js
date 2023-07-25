@@ -115,6 +115,14 @@ function displayWins() {
 }
 
 function game(e) {
+    
+    const awesomeMusic = document.querySelector('#awesome-audio');
+    if (!awesomeMusic.classList.contains('playing')) {
+        console.log(awesomeMusic);
+        awesomeMusic.play();
+        awesomeMusic.classList.add('playing');
+    }
+    
     console.log(`User Choice: ${this.id}`);
     let userChoice = this.id;
     let cpuChoice = getComputerChoice();
@@ -136,7 +144,3 @@ let userWins = 0;
 const userChoices = document.querySelectorAll('button');
 userChoices.forEach(choice => choice.addEventListener("click", game));
 
-
-
-
-//game();

@@ -8,9 +8,11 @@
     <script src="src/game.js" defer></script>
 </head>
 <body>
+    <audio id="awesome-audio" src="music/thunderstorm-in-kyoto-zac-tiessen-main-version-23958-01-30.mp3" loop></audio>
+    
     <h1>Rock - Paper - Scissors</h1>
     <div class="options-container">
-        <div>Choose your fighter!</div>
+        <div class="options-title">Choose your fighter!</div>
         <div class="options-content">
             <button id="rock">Rock</button>
             <button id="paper">Paper</button>
@@ -27,6 +29,19 @@
             <div class="choice" id="cpu-choice">Example</div>
         </div>
     </div>
-    <div class="result-container"></div> 
+    <div class="result-container">
+        <div class="result-title">Game Results:</div>
+        <div class="result-content">Example Results</div>
+    </div>
+    <div class="footer-container">
+        <div class="music-credit">
+            Music from #Uppbeat (free for Creators!):<br>
+            https://uppbeat.io/t/zac-tiessen/thunderstorm-in-kyoto<br>
+            License code: TXKZD32AKYNNV9AC
+        </div>
+        <div class="top-credit">
+            The Odin Project 2023
+        </div>
+    </div>
 </body>
 </html>
