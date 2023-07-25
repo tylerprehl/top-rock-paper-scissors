@@ -29,45 +29,34 @@ function playRound(playerChoice, computerChoice) {
 function displayChoices(userChoice, cpuChoice) {
     const choiceContainer = document.querySelector('.choices-container');
     
-    // remove old players' choices
-    if (choiceContainer.childNodes.length !== 0) {
-        const choiceDisplays = document.querySelectorAll('.choice-content');
-        choiceContainer.removeChild(choiceDisplays[0]);
-        choiceContainer.removeChild(choiceDisplays[1]);
+    // if no choice-content elements exist yet
+    if (choiceContainer.querySelector('.choice-content') === null) {
+        // create them
+        displayIndividualChoice(choiceContainer, "user", userChoice);
+        displayIndividualChoice(choiceContainer, "cpu", cpuChoice);
     }
+    else {
+        // change them
+        changeTextContent("#user-choice", userChoice);
+        changeTextContent("#cpu-choice", cpuChoice);
+    }
+}
 
-    // create new user's choice
-    const userChoiceContent = document.createElement('div');
-    userChoiceContent.classList.add('choice-content');
+function displayIndividualChoice(parentNode, player, playerChoice) {
+    const playerChoiceContent = document.createElement('div');
+    playerChoiceContent.classList.add('choice-content');
 
-    const userChoiceTitle = document.createElement('div');
-    userChoiceTitle.classList.add('user-choice-title');
-    userChoiceTitle.textContent = "User Choice:";
-    userChoiceContent.appendChild(userChoiceTitle);
+    const playerChoiceTitle = document.createElement('div');
+    playerChoiceTitle.classList.add(`${player}-choice-title`);
+    playerChoiceTitle.textContent = `${player.toUpperCase()} Choice:`;
+    playerChoiceContent.appendChild(playerChoiceTitle);
 
-    const userChoiceDiv = document.createElement('div');
-    userChoiceDiv.id = 'user-choice';
-    userChoiceDiv.textContent = userChoice.toUpperCase();
-    userChoiceContent.appendChild(userChoiceDiv);
+    const playerChoiceDiv = document.createElement('div');
+    playerChoiceDiv.id = `${player}-choice`;
+    playerChoiceDiv.textContent = playerChoice.toUpperCase();
+    playerChoiceContent.appendChild(playerChoiceDiv);
 
-    choiceContainer.appendChild(userChoiceContent);
-
-    // create new cpu's choice
-    const cpuChoiceContent = document.createElement('div');
-    cpuChoiceContent.classList.add('choice-content');
-
-    const cpuChoiceTitle = document.createElement('div');
-    cpuChoiceTitle.classList.add('cpu-choice-title');
-    cpuChoiceTitle.textContent = "CPU Choice:";
-    cpuChoiceContent.appendChild(cpuChoiceTitle);
-
-    const cpuChoiceDiv = document.createElement('div');
-    cpuChoiceDiv.classList.add('choice');
-    cpuChoiceDiv.id = 'cpu-choice';
-    cpuChoiceDiv.textContent = cpuChoice.toUpperCase();
-    cpuChoiceContent.appendChild(cpuChoiceDiv);
-
-    choiceContainer.appendChild(cpuChoiceContent);
+    parentNode.appendChild(playerChoiceContent);
 }
 
 function displayResult(gameResult) {
@@ -111,7 +100,7 @@ function displayScorecard() {
 
     // if the scorecard-container does not exist
     if (!scorecardContainer) {
-        // then create it and its children
+        // then create it and the user/cpu score elements
         const body = document.querySelector('body');
         const footerContainer = document.querySelector('.footer-container');
         
@@ -141,12 +130,12 @@ function displayScorecard() {
         displayScore(scorecardContent, "cpu", cpuWins);
     }
     else {
-        changeScore("user", userWins);
-        changeScore("cpu", cpuWins);
+        changeTextContent("#user-score-count", userWins);
+        changeTextContent("#cpu-score-count", cpuWins);
     }
 }
 
-function displayScore (parentContent, player, wins) {
+function displayScore (parentNode, player, wins) {
     const playerScoreContent = document.createElement('div');
     playerScoreContent.classList.add('individual-score-content');
 
@@ -161,12 +150,12 @@ function displayScore (parentContent, player, wins) {
     playerScoreCount.textContent = wins;
     playerScoreContent.appendChild(playerScoreCount);
 
-    parentContent.appendChild(playerScoreContent);
+    parentNode.appendChild(playerScoreContent);
 }
 
-function changeScore (player, wins) {
-    const playerScoreCount = document.querySelector(`#${player}-score-count`);
-    playerScoreCount.textContent = wins;
+function changeTextContent (query, text) {
+    const playerScoreCount = document.querySelector(query);
+    playerScoreCount.textContent = text;
 }
 
 function game(e) {

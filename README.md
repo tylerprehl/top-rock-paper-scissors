@@ -10,8 +10,8 @@ In this part, I only wrote the JS that allows the user to play the game via a ge
 <br><br>
 The key takeaways from this were:<br>
 <ul>
-    <li>The problem solving process</li>
-    <li>Using JS functions</li>
+    <li>Effectively execute the problem solving process</li>
+    <li>Use JS functions</li>
 </ul>
 
 ## Part 2
@@ -19,13 +19,14 @@ In this part, I created a UI to allow the user to play rock-paper-scissors on de
 <br><br>
 The key takeaways from this were:<br>
 <ul>
-    <li>Using query selectors and event listeners</li>
-    <li>Dynamically changing the DOM based on JavaScript logic/actions</li>
+    <li>Use query selectors and event listeners</li>
+    <li>Dynamically change the DOM based on JavaScript logic/actions</li>
 </ul>
 <br>
 
 Some other cool things I learned along the way:<br>
 <ul>
-    <li>Using the audio HTML tag and its attributes</li>
-    <li>Using emojis in HTML</li>
+    <li>Use the audio HTML tag and its attributes</li>
+    <li>Use emojis in HTML</li>
+    <li>Craft generic functions to reduce duplicated code</li>
 </ul>
