@@ -29,54 +29,15 @@ function playRound(playerChoice, computerChoice) {
 function displayChoices(userChoice, cpuChoice) {
     const choiceContainer = document.querySelector('.choices-container');
     
-    // if no choice-content elements exist yet
-    if (choiceContainer.querySelector('.choice-content') === null) {
-        // create them
-        displayIndividualChoice(choiceContainer, "user", userChoice);
-        displayIndividualChoice(choiceContainer, "cpu", cpuChoice);
-    }
-    else {
-        // change them
-        changeTextContent("#user-choice", userChoice);
-        changeTextContent("#cpu-choice", cpuChoice);
-    }
-}
+    changeTextContent("#user-choice", userChoice);
+    changeTextContent("#cpu-choice", cpuChoice);
 
-function displayIndividualChoice(parentNode, player, playerChoice) {
-    const playerChoiceContent = document.createElement('div');
-    playerChoiceContent.classList.add('choice-content');
-
-    const playerChoiceTitle = document.createElement('div');
-    playerChoiceTitle.classList.add(`${player}-choice-title`);
-    playerChoiceTitle.textContent = `${player.toUpperCase()} Choice:`;
-    playerChoiceContent.appendChild(playerChoiceTitle);
-
-    const playerChoiceDiv = document.createElement('div');
-    playerChoiceDiv.id = `${player}-choice`;
-    playerChoiceDiv.textContent = playerChoice.toUpperCase();
-    playerChoiceContent.appendChild(playerChoiceDiv);
-
-    parentNode.appendChild(playerChoiceContent);
+    showNodes(choiceContainer);
+    
 }
 
 function displayResult(gameResult) {
-    const resultContainer = document.querySelector('.result-container');
-
-    // if the result-container does not have the result (title) elements yet
-    if (resultContainer.querySelector('.result-title') === null) {
-        // then create them
-        const gameResultTitleDiv = document.createElement('div');
-        gameResultTitleDiv.classList.add('result-title')
-        gameResultTitleDiv.textContent = "Game Result:";
-        resultContainer.appendChild(gameResultTitleDiv);
-
-        const gameResultContentDivNew = document.createElement('div');
-        gameResultContentDivNew.classList.add('result-content');
-        resultContainer.appendChild(gameResultContentDivNew);
-    }
-
     const gameResultContentDiv = document.querySelector('.result-content');
-
     if (gameResult === 'player-win') {
         userWins++;
         gameResultContentDiv.textContent = "Player wins!";
@@ -88,6 +49,9 @@ function displayResult(gameResult) {
     else {
         gameResultContentDiv.textContent = "It was a draw";
     }
+
+    const resultContainer = document.querySelector('.result-container');
+    showNodes(resultContainer);
 }
 
 function displayScorecard() {
@@ -95,69 +59,56 @@ function displayScorecard() {
     console.log(`CPU Wins: ${cpuWins}`);
     console.log(' ');
 
+    changeTextContent("#user-score-count", userWins);
+    changeTextContent("#cpu-score-count", cpuWins);
+
     let scorecardContainer = document.querySelector('.scorecard-container');
+    showNodes(scorecardContainer);
+}
 
-    // if the scorecard-container does not exist
-    if (!scorecardContainer) {
-        // then create it and the user/cpu score elements
-        const body = document.querySelector('body');
-        const footerContainer = document.querySelector('.footer-container');
+function decideWinner() {
+    const winnerContent = document.querySelector('.winner-content');
+    let winnerExists = false;
+
+    if (userWins === winsNeeded) {
+        winnerContent.textContent = "YOU WON!"
+        winnerExists = true;
+    }
+    else if (cpuWins === winsNeeded) {
+        winnerContent.textContent = "The CPU defeated you"
+        winnerExists = true;
+    }
+
+    if (winnerExists) {
+        const fighterOptionsContainer = document.querySelector('.fighter-options-container');
+        const choicesContainer = document.querySelector('.choices-container');
+        const resultContainer = document.querySelector('.result-container');
         
-        scorecardContainer = document.createElement('div');
-        scorecardContainer.classList.add('scorecard-container');
-        // apply cool border (see style.css for credit)
-        scorecardContainer.style.cssText = "border: solid 5px white;" +
-                                           "width: 350px;" + 
-                                           "border-width: 3px 3px 5px 5px;" +
-                                           "border-radius: 4% 95% 6% 95%/95% 4% 92% 5%;" +
-                                           "transform: rotate(-2deg);"
-        body.insertBefore(scorecardContainer, footerContainer);
-
-        const scorecardTitle = document.createElement('div');
-        scorecardTitle.classList.add('scorecard-title')
-        scorecardTitle.textContent = "Scorecard:";
-        scorecardContainer.appendChild(scorecardTitle);
-
-        const scorecardContent = document.createElement('div');
-        scorecardContent.classList.add('scorecard-content');
-        scorecardContainer.appendChild(scorecardContent);
-
-        // user score
-        displayScore(scorecardContent, "user", userWins);
-
-        // cpu score
-        displayScore(scorecardContent, "cpu", cpuWins);
-    }
-    else {
-        changeTextContent("#user-score-count", userWins);
-        changeTextContent("#cpu-score-count", cpuWins);
+        hideNodes(fighterOptionsContainer, choicesContainer, resultContainer);
+        
+        const winnerContainer = document.querySelector('.winner-container');
+        showNodes(winnerContainer);
+        userWins = 0;
+        cpuWins = 0;
     }
 }
 
-function displayScore (parentNode, player, wins) {
-    const playerScoreContent = document.createElement('div');
-    playerScoreContent.classList.add('individual-score-content');
+function setBestOf() {
+    
+    bestOfNumber = Number(this.textContent);
+    console.log(`Best of ${bestOfNumber} chosen`);
 
-    const playerScoreTitle = document.createElement('div');
-    playerScoreTitle.classList.add('individual-score-title');
-    playerScoreTitle.textContent = `${player.toUpperCase()} Score`;
-    playerScoreContent.appendChild(playerScoreTitle);
+    winsNeeded = Math.trunc(bestOfNumber/2)+1;
+    console.log(`Wins needed to win: ${Math.trunc(bestOfNumber/2)+1}`)
 
-    const playerScoreCount = document.createElement('div');
-    playerScoreCount.classList.add('individual-score-count');
-    playerScoreCount.id = `${player}-score-count`;
-    playerScoreCount.textContent = wins;
-    playerScoreContent.appendChild(playerScoreCount);
-
-    parentNode.appendChild(playerScoreContent);
+    const bestOfContainer = document.querySelector('.game-options-container');
+    hideNodes(bestOfContainer);
+    
+    const fighterOptionsContainer = document.querySelector('.fighter-options-container');
+    showNodes(fighterOptionsContainer);
 }
 
-function changeTextContent (query, text) {
-    const playerScoreCount = document.querySelector(query);
-    playerScoreCount.textContent = text;
-}
-
-function game(e) {
+function game() {
     
     const awesomeMusic = document.querySelector('#awesome-audio');
     if (!awesomeMusic.classList.contains('playing')) {
@@ -180,19 +131,47 @@ function game(e) {
 
     displayScorecard();
 
+    decideWinner();
 }
 
-function removeChildNodes(headNode) {
-    if (headNode.childNodes.length !== 0) {
-        Array.from(headNode.childNodes).forEach(function (childNode) {
-            headNode.removeChild(childNode);
-        })
-    }
+function playAgain() {
+    const scorecardContainer = document.querySelector('.scorecard-container');
+    const winnerContainer = document.querySelector('.winner-container');
+    hideNodes(scorecardContainer, winnerContainer);
+    
+    const bestOfContainer = document.querySelector('.game-options-container');
+    showNodes(bestOfContainer);
 }
+
+function hideNodes(...headNodes) {
+    headNodes.forEach(headNode => {
+        headNode.style.cssText = "display: none";
+    })
+}
+
+function showNodes(...headNodes) {
+    // assumes that all containers are flex displays
+    headNodes.forEach(headNode => {
+        headNode.style.cssText = "display: flex";
+    })
+}
+
+function changeTextContent (query, text) {
+    const playerScoreCount = document.querySelector(query);
+    playerScoreCount.textContent = text;
+}
+
 
 let cpuWins = 0;
 let userWins = 0;
+let bestOfNumber = 0;
+let winsNeeded = 0;
 
-const userChoices = document.querySelectorAll('button');
-userChoices.forEach(choice => choice.addEventListener("click", game));
+const bestOfChoices = document.querySelectorAll('button.best-of-choice');
+bestOfChoices.forEach(bestOfChoice => bestOfChoice.addEventListener("click", setBestOf))
 
+const fighterChoices = document.querySelectorAll('button.fighter-choice');
+fighterChoices.forEach(fighterChoice => fighterChoice.addEventListener("click", game));
+
+const playAgainButton = document.querySelector('.play-again');
+playAgainButton.addEventListener("click", playAgain);

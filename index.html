@@ -11,56 +11,69 @@
     <audio id="awesome-audio" src="music/thunderstorm-in-kyoto-zac-tiessen-main-version-23958-01-30.mp3" loop></audio>
     
     <h1>Rock - Paper - Scissors</h1>
-    <div class="options-container">
-        <div class="options-title">Choose your fighter!</div>
-        <div class="options-content">
-            <button id="rock">
+
+    <div class="game-options-container">
+        <div class="game-options-title">Best of:</div>
+        <div class="game-options-content">
+            <button class="best-of-choice" id="best-of-one">1</button>
+            <button class="best-of-choice" id="best-of-three">3</button>
+            <button class="best-of-choice" id="best-of-five">5</button>
+        </div>
+    </div>
+
+    <div class="fighter-options-container" style="display: none">
+        <div class="fighter-options-title">Choose your fighter!</div>
+        <div class="fighter-options-content">
+            <button class="fighter-choice" id="rock">
                 Rock
                 <div class="emoji">&#x1FAA8;</div>
             </button>
-            <button id="paper">
+            <button class="fighter-choice" id="paper">
                 Paper
                 <div class="emoji">&#x1F4DC;</div>
             </button>
-            <button id="scissors">
+            <button class="fighter-choice" id="scissors">
                 Scissors
                 <div class="emoji">&#x2702;&#xFE0F;</div>
             </button>
         </div>
     </div>
-    <div class="choices-container">
-        <!--
+
+    <div class="choices-container" style="display: none">
         <div class="choice-content">
             <div class="user-choice-title">User Choice:</div>
-            <div class="choice" id="user-choice">Example</div>
+            <div class="choice" id="user-choice">???</div>
         </div>
         <div class="choice-content">
             <div class="cpu-choice-title">CPU Choice:</div>
-            <div class="choice" id="cpu-choice">Example</div>
+            <div class="choice" id="cpu-choice">???</div>
         </div>
-        -->
     </div>
-    <div class="result-container">
-        <!-- 
+
+    <div class="result-container" style="display: none">
         <div class="result-title">Game Results:</div>
         <div class="result-content">Example Results</div>
-        -->
     </div>
-    <!--
-    <div class="scorecard-container">
+
+    <div class="scorecard-container" style="display: none">
         <div class="scorecard-title">Scorecard</div>
         <div class="scorecard-content">
             <div class="individual-score-content">
                 <div class="individual-score-title">User Score</div>
-                <div class="individual-score-count" id="user-score-count">??</div>
+                <div class="individual-score-count" id="user-score-count">???</div>
             </div>
             <div class="individual-score-content">
                 <div class="individual-score-title">CPU Score</div>
-                <div class="individual-score-count" id="cpu-score-count">??</div>
+                <div class="individual-score-count" id="cpu-score-count">???</div>
             </div>
         </div>
     </div>
-    -->
+
+    <div class="winner-container" style="display: none">
+        <div class="winner-content">???</div>
+        <button class="play-again">Play Again?</button>
+    </div>
+
     <div class="footer-container">
         <div class="music-credit">
             Music from #Uppbeat (free for Creators!):<br>
