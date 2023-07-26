@@ -93,7 +93,18 @@ function decideWinner() {
     }
 }
 
+function startMusic() {
+    const awesomeMusic = document.querySelector('#awesome-audio');
+    if (!awesomeMusic.classList.contains('playing')) {
+        console.log(awesomeMusic);
+        awesomeMusic.play();
+        awesomeMusic.classList.add('playing');
+    }
+}
+
 function setBestOf() {
+
+    startMusic();
     
     bestOfNumber = Number(this.textContent);
     console.log(`Best of ${bestOfNumber} chosen`);
@@ -109,14 +120,6 @@ function setBestOf() {
 }
 
 function game() {
-    
-    const awesomeMusic = document.querySelector('#awesome-audio');
-    if (!awesomeMusic.classList.contains('playing')) {
-        console.log(awesomeMusic);
-        awesomeMusic.play();
-        awesomeMusic.classList.add('playing');
-    }
-    
     console.log(`User Choice: ${this.id}`);
     let userChoice = this.id;
     let cpuChoice = getComputerChoice();
