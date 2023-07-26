@@ -80,24 +80,12 @@ button:active {
     align-items: center;
 }
 
-#user-choice {
-
-}
-
-#cpu-choice {
-
-}
-
 .result-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     gap: 10px;
-    /* border: 3px aqua solid; */
-}
-
-.result-content {
     /* border: 3px aqua solid; */
 }
 
