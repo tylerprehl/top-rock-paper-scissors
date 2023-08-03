@@ -1,4 +1,6 @@
 # The Odin Project - Rock, Paper, Scissors
+You can access this webpage by visiting: https://tylerprehl.github.io/top-rock-paper-scissors/
+
 This project is divided into two parts:
 <ul>
     <li>Part 1: JavaScript for win/loss/draw computation</li>
